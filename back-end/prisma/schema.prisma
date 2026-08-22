@@ -29,5 +29,5 @@ model Customer {
  municipality   String                 // Município
  state          String     @db.Char(2) // UF
  phone          String                 // Telefone/celular
- email          String                 // E-mail
+ email          String     @unique     // E-mail
 }
