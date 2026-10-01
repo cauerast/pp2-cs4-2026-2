@@ -1,55 +1,37 @@
 import * as repository from "../repositories/customerRepository";
-
 import type { Customer } from "../../generated/prisma/client";
 import type { CreateCustomerDto } from "../dto/customer/createCustomerDto.ts";
 import type { UpdateCustomerDto } from "../dto/customer/updateCustomerDto.ts";
-
 import { NotFoundError } from "../errors/NotFoundError";
 
-
 export async function findAll(): Promise<Customer[]> {
- return repository.findAll();
+  return repository.findAll();
 }
 
+export async function findById(id: number): Promise<Customer> {
+  const customer = await repository.findById(id);
 
-export async function findById(
- id: number
-): Promise<Customer> {
- const customer = await repository.findById(id);
-
-
- if (!customer) {
-   throw new NotFoundError("Customer não encontrado.");
- }
-
-
- return customer;
+  if (!customer) throw new NotFoundError("Customer not found.");
+  
+  return customer;
 }
 
-
-export async function create(
- data: CreateCustomerDto
-): Promise<Customer> {
- return repository.create(data);
+export async function create(data: CreateCustomerDto): Promise<Customer> {
+  return repository.create(data);
 }
 
+export async function update(id: number,data: UpdateCustomerDto,): Promise<Customer> {
+  const exists = await repository.findById(id);
 
-export async function update(
- id: number,
- data: UpdateCustomerDto
-): Promise<Customer> {
- await findById(id);
+  if (!exists) throw new NotFoundError('Customer not found');
 
-
- return repository.update(id, data);
+  return await repository.update(id, data);
 }
 
+export async function remove(id: number): Promise<Customer> {
+  const customer = await repository.findById(id);
 
-export async function remove(
- id: number
-): Promise<Customer> {
- await findById(id);
+  if (!customer) throw new NotFoundError('Customer not found');
 
-
- return repository.remove(id);
+  return await repository.remove(id);
 }

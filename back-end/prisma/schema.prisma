@@ -20,7 +20,7 @@ datasource db {
 model Customer {
  id             Int        @id @default(autoincrement())  // Chave primária, autoincremental
  name           String                 // Nome do cliente
- ident_document String     @unique            // Documento de identidade (usaremos o CPF)
+ ident_document String     @unique     // Documento de identidade (usaremos o CPF)
  birth_date     DateTime?  @db.Date    // Data de nascimento (? = opcional)
  street_name    String                 // Nome da rua do endereço
  house_number   String                 // Número da casa
@@ -30,4 +30,25 @@ model Customer {
  state          String     @db.Char(2) // UF
  phone          String                 // Telefone/celular
  email          String     @unique     // E-mail
+
+cars            Car[]     // Relação de carros pertencentes ao cliente
+}
+
+
+model Car {
+ id               Int      @id @default(autoincrement())  // Chave primária
+ brand            String   // Marca
+ model            String   // Modelo
+ color            String   // Cor
+ year_manufacture Int      // Ano de fabricação
+ imported         Boolean  // É importado?
+ plates           String   // Placas
+ selling_date     DateTime? @db.Date  // Data de venda
+ selling_price    Decimal?   // Preço de venda
+
+ // Chave estrangeira opcional
+ customer_id      Int?
+
+ // Relacionamento com o cliente
+ customer Customer? @relation(fields: [customer_id], references: [id])
 }
