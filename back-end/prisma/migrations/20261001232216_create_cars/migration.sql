@@ -7,7 +7,7 @@ CREATE TABLE "Car" (
     "year_manufacture" INTEGER NOT NULL,
     "imported" BOOLEAN NOT NULL,
     "plates" TEXT NOT NULL,
-    "selling_date" TIMESTAMP(3),
+    "selling_date" DATE,
     "selling_price" DECIMAL(65,30),
     "customer_id" INTEGER,
 
