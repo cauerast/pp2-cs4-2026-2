@@ -55,8 +55,8 @@ const states = [
 
 // Função para interpretar e dar mensagens de erro mais
 // inteligíveis aos erros de fetch()
-async function getErrorMessage(response) {
- const error = await response.json().catch(() => null)
+async function getErrorMessage(response: Response): Promise<string> {
+ const error = await response.json().catch(() => null) as { message?: string } | null
  return error?.message || `A requisição falhou (HTTP ${response.status}).`
 }
 
