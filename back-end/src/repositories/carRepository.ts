@@ -23,7 +23,7 @@ export function create(data: CreateCarDto) {
 }
 
 export function update(id: number, data: UpdateCarDto) {
-  return prisma.customer.update({
+  return prisma.car.update({
     where: { id },
     data,
   });

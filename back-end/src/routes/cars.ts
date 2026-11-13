@@ -8,6 +8,7 @@ const router = Router();
 router.get('/', controller.getCars);
 router.get('/:id', controller.getCarById);
 router.post('/', controller.createCar);
+router.put('/:id', controller.updateCar)
 router.patch('/:id',controller.updateCar);
 router.delete('/:id', controller.removeCar);
 

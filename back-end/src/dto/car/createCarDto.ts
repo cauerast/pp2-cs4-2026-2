@@ -7,4 +7,5 @@ export type CreateCarDto = {
  plates: string,
  selling_date?: Date
  selling_price?: number
+ customer_id?: number
 }
